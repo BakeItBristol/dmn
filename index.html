@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Tickets - Bake It Bristol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .widget-container {
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .widget-container {
+        padding: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <script
+      type="text/javascript"
+      src="https://widgets.designmynight.com/tonic/ticket-widget-v2.min.js?item-ids=681a70d10d01774a08419168&theme=custom&primary=FFADAD&primaryLight=FFFAD7&secondary=FFA940&secondaryLight=F9F9FA&shade1=F9F9FA&shade2="
+      data-dmn-ticket-widget="true">
+    </script>
+  </div>
+
+  <script>
+    function sendHeight() {
+      const container = document.body;
+      const height = container.scrollHeight;
+      const cappedHeight = Math.min(height, 1400); // limit to avoid overly long pages
+      parent.postMessage({ type: 'dmn_height', height: cappedHeight }, '*');
+    }
+
+    window.addEventListener('load', () => {
+      sendHeight();
+      setTimeout(sendHeight, 2000); // ensure second resize after widget loads
+    });
+
+    const observer = new MutationObserver(sendHeight);
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
+</body>
+</html>
